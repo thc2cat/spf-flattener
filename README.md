@@ -61,3 +61,5 @@ priorityEntries:
 - `maxLookups`: Limits the total number of allowed DNS lookups.
 - `targetDomain`: The target domain for which SPF records should be resolved.
 - `priorityEntries`: A list of priority entries to include in the resolution.
+
+Version v0.1 - thc2cat - 2025/20/21.
