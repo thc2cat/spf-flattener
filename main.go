@@ -82,9 +82,9 @@ func main() {
 		}
 
 		// The entry point record is _spf.domain.com
-		fullRecordName := fmt.Sprintf("%s.%s", recordName, cfg.TargetDomain)
+		fullRecordName := fmt.Sprintf("%s", recordName)
 
-		fmt.Printf("%s IN TXT \"%s\"\n", fullRecordName, segment)
+		fmt.Printf("%s 600 IN TXT \"%s\"\n", fullRecordName, segment)
 
 	}
 
