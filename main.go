@@ -65,7 +65,7 @@ func main() {
 
 	// --- Output Results ---
 
-	log.Println("\n=======================================================")
+	log.Println("=======================================================")
 	log.Println("             SPF FLATTENING RESULTS")
 	log.Println("=======================================================")
 	log.Printf("Initial Domain: %s\n", targetDomain)
