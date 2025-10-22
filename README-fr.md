@@ -42,11 +42,11 @@ Pour utiliser l'outil, exécutez la commande suivante :
 go run main.go
 ```
 
-Assurez-vous que le fichier de configuration `config.yaml` est présent dans le répertoire racine du projet.
+Assurez-vous que le fichier de configuration `spf-flattener-config.yaml` est présent dans le répertoire racine du projet.
 
 ## Configuration
 
-Le fichier de configuration `config.yaml` doit contenir les paramètres suivants :
+Le fichier de configuration `spf-flattener-config.yaml` doit contenir les paramètres suivants :
 
 ```yaml
 concurrencyLimit: 10

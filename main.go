@@ -5,15 +5,13 @@ import (
 	"log"
 	"net"
 
-	// "github.com/miekg/dns"
-
 	"project/spf-flattener/cidr"
 	"project/spf-flattener/config"
 	"project/spf-flattener/dns"
 	"project/spf-flattener/formatter"
 )
 
-const configFile = "config.yaml"
+const configFile = "spf-flattener-config.yaml"
 
 func main() {
 	// 1. Load Configuration
@@ -30,18 +28,6 @@ func main() {
 
 	// Utiliser le targetDomain de la configuration
 	targetDomain := "spf-unflat." + cfg.TargetDomain
-
-	// // 2. Identify Second-Level Domain (SLD) for chaining
-	// sld, err := publicsuffix.Pu(targetDomain)
-	// if err != nil {
-	// 	log.Fatalf("ERROR: Could not determine Second Level Domain (SLD) for %s: %v", targetDomain, err)
-	// }
-	// // The SLD might be just "com" for google.com, so we try to get the eTLD+1
-	// if sld == "" || !strings.Contains(sld, ".") {
-	// 	sld = targetDomain // Fallback to target domain if SLD resolution fails unusually
-	// }
-	// log.Printf("INFO: Determined SLD for TXT chaining: %s", sld)
-	sld := cfg.TargetDomain
 
 	// --- Core Processing ---
 
@@ -75,7 +61,7 @@ func main() {
 	finalIPNets := cidr.DeduplicateAndSort(allIPNets)
 
 	// 7. Format Output (Multi-TXT Segmentation)
-	segments := formatter.FormatSegments(finalIPNets, sld)
+	segments := formatter.FormatSegments(finalIPNets, cfg.TargetDomain)
 
 	// --- Output Results ---
 
@@ -98,7 +84,7 @@ func main() {
 		// The entry point record is _spf.domain.com
 		fullRecordName := fmt.Sprintf("%s.%s", recordName, cfg.TargetDomain)
 
-		fmt.Printf("  %s IN TXT \"%s\"\n", fullRecordName, segment)
+		fmt.Printf("%s IN TXT \"%s\"\n", fullRecordName, segment)
 
 	}
 
