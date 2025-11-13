@@ -30,13 +30,13 @@ func FormatSegments(results cidr.NetAddrSlice, sld string) []string {
 		cidrStr := prefix + addr.IPNet.String()
 
 		// Check if adding this CIDR would exceed limit (including space for include and ~all)
-		nextIndex := len(segments) + 1 // Start from spf2 as spf1 will be the first include
+		nextIndex := len(segments) + 1
 		includeStr := fmt.Sprintf("include:spf%d.%s", nextIndex, sld)
-		reservedSpace := len(includeStr) + len(finalDirective) + 2 // +2 for spaces
+		reservedSpace := len(includeStr) + 1 // +2 for spaces
 
 		if currentLength+len(cidrStr)+1+reservedSpace > maxTXTLength {
-			// Finalize current segment with include and ~all
-			currentSegment = append(currentSegment, fmt.Sprintf("include:spf%d.%s", nextIndex, sld), finalDirective)
+			// Finalize current segment with include only (no ~all)
+			currentSegment = append(currentSegment, includeStr)
 			segments = append(segments, strings.Join(currentSegment, " "))
 
 			// Start new segment
